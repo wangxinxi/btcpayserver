@@ -1,10 +1,13 @@
-﻿@model PayoutsModel
+﻿@using BTCPayServer.Client.Models
+@model PayoutsModel
 
 @inject IEnumerable<IPayoutHandler> PayoutHandlers;
 @{
     Layout = "../Shared/_NavLayout.cshtml";
     ViewData["Title"] = "Manage payouts";
     ViewData.SetActivePageAndTitle(WalletsNavPages.Payouts);
+    var payoutHandler = PayoutHandlers.FirstOrDefault(handler => handler.CanHandle(Model.PaymentMethodId));
+    var actions = payoutHandler?.GetPayoutSpecificActions();
 }
 
 @if (TempData.HasStatusMessage())
@@ -56,6 +59,10 @@
                         stateActions.Add(("pay", "Send selected payouts"));
                         stateActions.Add(("cancel", "Cancel selected payouts"));
                         break;
+                }
+                @if (actions?.ContainsKey(state.State) is true)
+                {
+                    stateActions.AddRange(actions[state.State]);
                 }
                 <div class="tab-pane @(index ==0? "active": "") " id="@state.State" role="tabpanel">
                     <input type="hidden" asp-for="PayoutStateSets[index].State"/>
