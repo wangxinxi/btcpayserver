@@ -66,7 +66,7 @@
                             <button class="btn btn-primary dropdown-toggle  mb-1" type="button" data-toggle="dropdown" id="@state.State-actions">
                                 Actions
                             </button>
-                            <div class="dropdown-menu">
+                            <div class="dropdown-menu dropdown-menu-right">
                                 @foreach (var action in stateActions)
                                 {
                                     <button type="submit" id="@state.State-@action.Action" name="Command" class="dropdown-item" role="button" value="@state.State-@action.Action">@action.Text</button>

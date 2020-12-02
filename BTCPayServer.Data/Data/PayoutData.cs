@@ -1,5 +1,6 @@
 using System;
 using System.ComponentModel.DataAnnotations;
+using BTCPayServer.Client.Models;
 using Microsoft.EntityFrameworkCore;
 using NBitcoin;
 
@@ -49,14 +50,5 @@ namespace BTCPayServer.Data
             builder.Entity<PayoutData>()
                 .HasIndex(o => o.State);
         }
-    }
-
-    public enum PayoutState
-    {
-        AwaitingApproval,
-        AwaitingPayment,
-        InProgress,
-        Completed,
-        Cancelled
     }
 }
