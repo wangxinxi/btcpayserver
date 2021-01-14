@@ -13,7 +13,7 @@
 {
     <div class="row">
         <div class="col-md-12 text-center">
-            <partial name="_StatusMessage" />
+            <partial name="_StatusMessage"/>
         </div>
     </div>
 }
@@ -31,9 +31,17 @@
 }
 
 <div class="row">
-    @foreach (var pp in Model.PullPayments)
+    @if (!Model.PullPayments.Any())
     {
-        <script id="tooptip_template_@pp.Id" type="text/template">
+        <p class="text-secondary mt-3">
+            There are no pull payments yet.
+        </p>
+    }
+    else
+    {
+        @foreach (var pp in Model.PullPayments)
+        {
+            <script id="tooptip_template_@pp.Id" type="text/template">
             <span>Awaiting:&nbsp;<span class="float-right">@pp.Progress.Awaiting</span></span>
             <br />
             <span>Completed:&nbsp;<span class="float-right">@pp.Progress.Completed</span></span>
@@ -50,10 +58,10 @@
                 <span>Expires in:&nbsp;<span class="float-right">@pp.Progress.EndIn</span></span>
             }
         </script>
-    }
-    <div class="col-md-12">
-        <table class="table table-sm table-responsive-lg">
-            <thead class="thead-inverse">
+        }
+        <div class="col-md-12">
+            <table class="table table-sm table-responsive-lg">
+                <thead class="thead-inverse">
                 <tr>
                     <th scope="col">
                         Start
@@ -62,8 +70,8 @@
                     <th scope="col">Refunded</th>
                     <th scope="col" class="text-right">Actions</th>
                 </tr>
-            </thead>
-            <tbody>
+                </thead>
+                <tbody>
                 @foreach (var pp in Model.PullPayments)
                 {
                     <tr>
@@ -82,17 +90,25 @@
                         <td class="text-right">
                             <a asp-action="ViewPullPayment"
                                asp-controller="PullPayment"
-                               asp-route-pullPaymentId="@pp.Id">View</a> - <a class="pp-payout" asp-action="Payouts"
-                                                                             asp-route-walletId="@this.Context.GetRouteValue("walletId")"
-                                                                             asp-route-pullPaymentId="@pp.Id">Payouts</a> - <a asp-action="ArchivePullPayment"
-                                                                                                                               asp-route-walletId="@this.Context.GetRouteValue("walletId")"
-                                                                                                                               asp-route-pullPaymentId="@pp.Id">Archive</a>
+                               asp-route-pullPaymentId="@pp.Id">
+                                View
+                            </a> -
+                            <a class="pp-payout" asp-action="Payouts"
+                               asp-route-walletId="@this.Context.GetRouteValue("walletId")"
+                               asp-route-pullPaymentId="@pp.Id">
+                                Payouts
+                            </a> -
+                            <a asp-action="ArchivePullPayment"
+                               asp-route-walletId="@this.Context.GetRouteValue("walletId")"
+                               asp-route-pullPaymentId="@pp.Id">
+                                Archive
+                            </a>
                         </td>
                     </tr>
                 }
-            </tbody>
-        </table>
-        <script type="text/javascript">
+                </tbody>
+            </table>
+            <script type="text/javascript">
             var ppProgresses = document.getElementsByClassName("ppProgress");
             for (var i = 0; i < ppProgresses.length; i++) {
                 var pp = ppProgresses[i];
@@ -101,5 +117,6 @@
                 pp.setAttribute("title", template.innerHTML);
             }
         </script>
-    </div>
-</div>
+        </div>
+    }
+</div >
