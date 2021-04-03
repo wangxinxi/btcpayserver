@@ -7,6 +7,9 @@
 
     <PreserveCompilationContext>true</PreserveCompilationContext>
   </PropertyGroup>
+  <PropertyGroup Condition=" '$(RunConfiguration)' == 'Altcoins-HTTPS' " />
+  <PropertyGroup Condition=" '$(RunConfiguration)' == 'Bitcoin' " />
+  <PropertyGroup Condition=" '$(RunConfiguration)' == 'Bitcoin-HTTPS' " />
   <ItemGroup>
 
     <Compile Remove="Build\**" />
