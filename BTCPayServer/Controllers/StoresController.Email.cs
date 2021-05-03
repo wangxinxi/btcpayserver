@@ -42,7 +42,7 @@ namespace BTCPayServer.Controllers
                         return View(model);
                     }
                     var client = model.Settings.CreateSmtpClient();
-                    var message = model.Settings.CreateMailMessage(new MailAddress(model.TestEmail), "BTCPay test", "BTCPay test");
+                    var message = model.Settings.CreateMailMessage(new MailAddress(model.TestEmail), "LTCPay test", "LTCPay test");
                     await client.SendMailAsync(message);
                     TempData[WellKnownTempData.SuccessMessage] = "Email sent to " + model.TestEmail + ", please, verify you received it";
                 }

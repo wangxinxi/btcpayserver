@@ -21,7 +21,8 @@ namespace BTCPayServer
                 DefaultRateRules = new[]
                 {
                     "LTC_X = LTC_BTC * BTC_X",
-                    "LTC_BTC = coingecko(LTC_BTC)"
+                    "LTC_BTC = coingecko(LTC_BTC)",
+                    "LTC_USD = coinbasepro(LTC_USD)"
                 },
                 CryptoImagePath = "imlegacy/litecoin.svg",
                 LightningImagePath = "imlegacy/litecoin-lightning.svg",

@@ -83,66 +83,65 @@
             </ul>
             @if (Model.DerivationSchemes.Any(scheme => scheme.Collapsed))
             {
-                <script>
-                    $(document).ready(function () {
+                <script>$(document).ready(function () {
                         $(".collapsed").hide();
                         $("#toggle-assets").click(function () {
                             $(".collapsed").show();
                         });
-                    });
-                </script>
+                    });</script>
                 <button class="btn btn-link text-secondary mb-3 p-0 only-for-js" id="toggle-assets" type="button">Show additional assets</button>
             }
         </div>
-
-        <div class="mb-5">
-            <h4 class="mb-3">Lightning</h4>
-            @if (Model.HintLightning)
+        <!--
+    <div class="mb-5">
+        <h4 class="mb-3">Lightning</h4>
+        @if (Model.HintLightning)
+        {
+            <p>A connection to a Lightning node is required to receive Lightning payments.</p>
+        }
+        <ul class="list-group mb-3">
+            @foreach (var scheme in Model.LightningNodes)
             {
-                <p>A connection to a Lightning node is required to receive Lightning payments.</p>
-            }
-            <ul class="list-group mb-3">
-                @foreach (var scheme in Model.LightningNodes)
-                {
-                    var isSetUp = !string.IsNullOrWhiteSpace(scheme.Address);
+                var isSetUp = !string.IsNullOrWhiteSpace(scheme.Address);
 
-                    <li class="list-group-item bg-tile">
-                        <div class="d-flex align-items-center">
-                            <span class="d-flex flex-wrap flex-fill flex-column flex-sm-row">
-                                <strong class="mr-3">@scheme.CryptoCode</strong>
-                                @if (isSetUp)
-                                {
-                                    <span class="smMaxWidth text-truncate text-secondary mr-3">@scheme.Address</span>
-                                }
-                            </span>
-                            <span class="d-flex align-items-center fw-semibold">
-                                @if (scheme.Enabled)
-                                {
-                                    <span class="d-flex align-items-center text-success">
-                                        <span class="mr-2 btcpay-status btcpay-status--enabled"></span>
-                                        Enabled
-                                    </span>
-                                }
-                                else
-                                {
-                                    <span class="d-flex align-items-center text-danger">
-                                        <span class="mr-2 btcpay-status btcpay-status--disabled"></span>
-                                        Disabled
-                                    </span>
-                                }
-                                @if (isSetUp)
-                                {
-                                    <span class="text-light ml-3 mr-2">|</span>
-                                }
-                                <a asp-action="AddLightningNode" asp-route-cryptoCode="@scheme.CryptoCode" asp-route-storeId="@Context.GetRouteValue("storeId")" id="@($"Modify-Lightning{scheme.CryptoCode}")" class="btn btn-@(isSetUp ? "link px-1" : "primary btn-sm ml-4 px-3") py-1 fw-semibold">
-                                    @(isSetUp ? "Modify" : "Setup")
-                                </a>
-                            </span>
-                        </div>
-                    </li>
-                }
-            </ul>
-        </div>
+                <li class="list-group-item bg-tile">
+                    <div class="d-flex align-items-center">
+                        <span class="d-flex flex-wrap flex-fill flex-column flex-sm-row">
+                            <strong class="mr-3">@scheme.CryptoCode</strong>
+                            @if (isSetUp)
+                            {
+                                <span class="smMaxWidth text-truncate text-secondary mr-3">@scheme.Address</span>
+                            }
+                        </span>
+                        <span class="d-flex align-items-center fw-semibold">
+                            @if (scheme.Enabled)
+                            {
+                                <span class="d-flex align-items-center text-success">
+                                    <span class="mr-2 btcpay-status btcpay-status--enabled"></span>
+                                    Enabled
+                                </span>
+                            }
+                            else
+                            {
+                                <span class="d-flex align-items-center text-danger">
+                                    <span class="mr-2 btcpay-status btcpay-status--disabled"></span>
+                                    Disabled
+                                </span>
+                            }
+                            @if (isSetUp)
+                            {
+                                <span class="text-light ml-3 mr-2">|</span>
+                            }
+                            <a asp-action="AddLightningNode" asp-route-cryptoCode="@scheme.CryptoCode" asp-route-storeId="@Context.GetRouteValue("storeId")" id="@($"Modify-Lightning{scheme.CryptoCode}")" class="btn btn-@(isSetUp ? "link px-1" : "primary btn-sm ml-4 px-3") py-1 fw-semibold">
+                                @(isSetUp ? "Modify" : "Setup")
+                            </a>
+                        </span>
+                    </div>
+                </li>
+            }
+        </ul>
+    </div>
+        -->
 
         <form method="post" class="mb-5">
             <h4 class="mb-3">General</h4>
@@ -232,11 +231,9 @@
                         <span class="fa fa-question-circle-o" title="More information..."></span>
                     </a>
                 </div>
-                <script>
-                    function handleSpeedPolicyChange(select) {
+                <script>function handleSpeedPolicyChange(select) {
                         document.getElementById('unconfirmed-warning').hidden = select.value !== '0';
-                    }
-                </script>
+                    }</script>
                 <select asp-for="SpeedPolicy" class="form-control w-auto" onchange="handleSpeedPolicyChange(this)">
                     <option value="0">Is unconfirmed</option>
                     <option value="1">Has at least 1 confirmation</option>
@@ -261,6 +258,7 @@
             <button name="command" type="submit" class="btn btn-primary" value="Save" id="Save">Save Store Settings</button>
         </form>
 
+        <!--
         <h4 class="mb-3">Additional payment methods</h4>
         <div class="table-responsive-md">
             <table class="table table-sm mt-1 mb-5">
@@ -296,27 +294,28 @@
                 </tbody>
             </table>
         </div>
+        -->
 
         <h4 class="mt-5 mb-3">Services</h4>
         <div class="table-responsive-md">
             <table class="table table-sm mt-1 mb-5">
                 <thead>
-                <tr>
-                    <th>Service</th>
-                    <th class="text-right w-100px">Actions</th>
-                </tr>
+                    <tr>
+                        <th>Service</th>
+                        <th class="text-right w-100px">Actions</th>
+                    </tr>
                 </thead>
                 <tbody>
-                <tr>
-                    <td>
-                        Email
-                    </td>
-                    <td class="text-right">
-                        <a asp-action="Emails" asp-route-storeId="@Context.GetRouteValue("storeId")">
-                            Setup
-                        </a>
-                    </td>
-                </tr>
+                    <tr>
+                        <td>
+                            Email
+                        </td>
+                        <td class="text-right">
+                            <a asp-action="Emails" asp-route-storeId="@Context.GetRouteValue("storeId")">
+                                Setup
+                            </a>
+                        </td>
+                    </tr>
                 </tbody>
             </table>
         </div>

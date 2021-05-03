@@ -269,7 +269,9 @@ namespace BTCPayServer.Services.Wallets
             {
                 var result = await _Client.GetBalanceAsync(derivationStrategy, cancellation);
                 entry.AbsoluteExpiration = DateTimeOffset.UtcNow + CacheSpan;
-                return result.Total.GetValue(_Network);
+                IMoney total = result.Total;
+                var value = total.GetValue(_Network);
+                return value;
             });
         }
     }

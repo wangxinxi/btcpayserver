@@ -48,5 +48,5 @@
   "Pay with Changelly": "Bayar dengan Changelly",
   "Close": "Tutup",
   "NotPaid_ExtraTransaction": "Tagihan ini belum dibayarkan sepenuhnya. Dimohon untuk membayarkan sisa pembayaran anda.",
-  "Recommended_Fee": "Biaya yang disarankan: {{feeRate}} sat/byte"
+  "Recommended_Fee": "Biaya yang disarankan: {{feeRate}} litoshi/byte"
 }
